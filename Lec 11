@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdbool.h>
+
+void scan_word(int *occurrences){ //scan_word function with occurrences array as the parameter
+    char c; //declaring variable c as character
+    while ((c=getchar()) != '\n'){ //keeping track of how many times a letter occur in the word
+        if (isalpha(c)){
+            *(occurrences + (toupper(c) - 'A')) += 1;
+        }
+    }
+}
+
+bool is_anagram(int *occurrences1, int *occurrences2){ //is_anagram function with the arrays as the parameter
+    for(int i = 0; i < 26; i++){ //comparing if they are equal
+        if (*(occurrences1 + i) != *(occurrences2 + i)){
+            return false; //returning value of false if one of the letters in one array is not in the other array
+        }
+    }
+    return true; //returning value of true if all letters in each array is present 
+}
+
+int main(void){
+    int occurrences1[26] = {0}; //declaring the first array as int with size of 26
+    int occurrences2[26] = {0}; //declaring the second array as int with size of 26
+
+    printf("Please enter the 1st word: "); //entering the 1st word
+    scan_word(occurrences1); //calling the scan_word function with occurrences1 as the parameter which is the 1st word
+
+    printf("Please enter the 2nd word: "); //entering the 2nd word
+    scan_word(occurrences2); //calling the scan_word function with occurrences2 as the parameter which is the 2nd word
+
+    if(is_anagram(occurrences1, occurrences2)){ //if statement, calling the function is_anagram which will return either true or false value
+        printf("The words are anagram.\n"); //if the return value is true, it will print this
+    }else{ //if it return false
+        printf("The words are not aanagram.\n"); //it wwill print this
+    }
+    return 0;
+}
