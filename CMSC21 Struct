@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <math.h>
+
+struct Line {
+	struct Point {
+ 	float x;
+	float y; 
+	} point1, point2;
+};
+
+// Function to solve the slope of a line using the formula given
+float solveSlope(struct Line line) { // solveSolve function with struct Line line as the parameter
+    float slope = (line.point2.y - line.point1.y) / (line.point2.x - line.point1.x);
+    return slope; // returning the value of slope
+}
+
+// Function to solve the midpoint of a line using the formula given
+struct Point solveMidpoint(struct Line line) { 
+    struct Point midpoint;
+    midpoint.x = (line.point1.x + line.point2.x) / 2;
+    midpoint.y = (line.point1.y + line.point2.y) / 2;
+    return midpoint; // returning the value of midpoint 
+}
+
+// Function to solve the distance between two points using the given formula
+float solveDistance(struct Line line) { // solved instance function with struct Line line as the parameter
+    float distance = sqrt(pow(line.point2.x - line.point1.x, 2) + pow(line.point2.y - line.point1.y, 2));
+    return distance; // returning the value of distance 
+}
+
+// Function to get the slope-intercept form of a line using the given formula
+void getSlopeInterceptForm(struct Line line) { // getSlopeInterceptForm function with struct Line line as the parameter
+    float slope = solveSlope(line); //variable slope is float and is the value of whatever is returning in solves lope functiob
+    float intercept = line.point1.y - slope * line.point1.x;
+    printf("The slope-intercept form of the line is: y = %.2fx + %.2f\n", slope, intercept); //printing the slope intercept form
+}
+
+int main() {
+    struct Line line;
+
+    printf("Enter x and y for point1: "); // getting the value of x and y for point 1
+    scanf("%f%f", &line.point1.x, &line.point1.y) ;
+    printf("Enter x and y for line2: "); // getting the value of x and y for point in a line
+    scanf("%f%f", &line.point2.x, &line.point2.y);
+
+// Solve and display the slope
+    float slope = solveSlope(line);
+    printf("The slope of the line is: %.2f\n", slope); // printing the slope
+
+// Solve and display the midpoint
+    struct Point midpoint = solveMidpoint(line);
+    printf("The midpoint of the line is: (%.2f, %.2f)\n", midpoint.x, midpoint.y);
+
+// Solve and display the distance
+    float distance = solveDistance(line);
+    printf("The distance between the two points is: %.2f\n", distance);
+
+// Get and display the slope-intercept form
+    getSlopeInterceptForm(line); // calling the getSlopeInterceptForm function
+
+    return 0;
+}
